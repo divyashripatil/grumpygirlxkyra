@@ -152,7 +152,6 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
             placeholder="first name is enough"
             value={data.name}
             onChange={(e) => update("name", e.target.value)}
-            autoFocus
           />
           <label style={{ marginTop: "1.1rem" }}>phone number</label>
           <input
@@ -268,7 +267,6 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
             placeholder="a paragraph, a sentence, a fragment. unhinged is welcome. be specific."
             value={data.story}
             onChange={(e) => update("story", e.target.value)}
-            autoFocus
           />
           <p className="hint" style={{ display: "flex", justifyContent: "space-between" }}>
             <span>min 20 characters · be specific</span>
