@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>kyra × grumpy girl · apply</title>
+<meta name="description" content="A pop-up by Kyra (rides for women) and Grumpy Girl Coffee. Indiranagar, Bangalore. Apply now." />
+
+<!-- Inlined resources referenced from JSX strings -->
+<meta name="ext-resource-dependency" content="assets/auto-rickshaw-maroon.png" data-resource-id="autoRickshaw" />
+<meta name="ext-resource-dependency" content="assets/grumpy-mascot-rust.png" data-resource-id="mascotRust" />
+<meta name="ext-resource-dependency" content="assets/grumpy-mascot-cream.png" data-resource-id="mascotCream" />
+<meta name="ext-resource-dependency" content="assets/grumpy-mascot.png" data-resource-id="mascot" />
+<meta name="ext-resource-dependency" content="assets/photo-waffle.jpg" data-resource-id="photoWaffle" />
+<meta name="ext-resource-dependency" content="assets/photo-coffee.jpg" data-resource-id="photoCoffee" />
+<meta name="ext-resource-dependency" content="assets/photo-portrait.jpg" data-resource-id="photoPortrait" />
+
+<template id="__bundler_thumbnail" data-bg-color="#F5E9D4">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <!-- maroon brand chip + yellow X -->
+    <rect x="380" y="280" width="440" height="240" rx="24" fill="#3D0808"/>
+    <path d="M 460 340 L 740 460" stroke="#F5C84B" stroke-width="44" stroke-linecap="round"/>
+    <path d="M 740 340 L 460 460" stroke="#F5C84B" stroke-width="44" stroke-linecap="round"/>
+    <!-- decorative coffee bean accents -->
+    <ellipse cx="240" cy="200" rx="34" ry="48" fill="#3D0808" transform="rotate(-22 240 200)"/>
+    <ellipse cx="960" cy="600" rx="34" ry="48" fill="#3D0808" transform="rotate(18 960 600)"/>
+    <!-- title line -->
+    <text x="600" y="660" text-anchor="middle" font-family="serif" font-size="46" fill="#3D0808" font-style="italic">kyra × grumpy girl</text>
+  </svg>
+</template>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,500;10..48,600;10..48,700;10..48,800&family=DM+Serif+Display&family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="preloader">
+  <div class="word">
+    <span>k</span><span>y</span><span>r</span><span>a</span>
+  </div>
+  <div class="meta">× grumpy girl coffee · indiranagar</div>
+  <div class="bar"></div>
+</div>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="scribbles-standalone.jsx"></script>
+<script type="text/babel" src="sections-standalone.jsx"></script>
+<script type="text/babel" src="form.jsx"></script>
+<script type="text/babel" src="app.jsx"></script>
+</body>
+</html>
