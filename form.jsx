@@ -1,5 +1,5 @@
 // Apply form for Kyra × Grumpy Girl
-const { useState } = React;
+const { useState, useRef } = React;
 
 const STORY_PROMPTS = [
   "the last cab ride",
@@ -34,6 +34,7 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [submitStage, setSubmitStage] = useState(0);
+  const [appRef, setAppRef] = useState("");
   // 0 = saving · 1 = holding ₹100 · 2 = confirmed
 
   const update = (k, v) => setData((d) => ({ ...d, [k]: v }));
@@ -53,13 +54,68 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
   };
   const back = () => setStep(Math.max(0, step - 1));
 
-  const submit = () => {
+  const submit = async () => {
     setSubmitting(true);
     setSubmitStage(0);
-    // Fake the deposit flow
-    setTimeout(() => setSubmitStage(1), 900);
-    setTimeout(() => setSubmitStage(2), 1900);
-    setTimeout(() => { setSubmitting(false); setDone(true); }, 2400);
+
+    const ref = "KYRA-" + Math.floor(10000 + Math.random() * 90000);
+    setAppRef(ref);
+
+    try {
+      // Step 1: create Razorpay order
+      const orderRes = await fetch('/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      });
+      const orderData = await orderRes.json();
+      if (!orderData.orderId) throw new Error('Order creation failed');
+
+      setSubmitStage(1);
+
+      // Step 2: open Razorpay checkout
+      const options = {
+        key: orderData.key,
+        amount: orderData.amount,
+        currency: 'INR',
+        name: 'kyra × grumpy girl',
+        description: '₹100 deposit · your spot in the queue',
+        order_id: orderData.orderId,
+        prefill: { name: data.name, contact: data.phone },
+        theme: { color: '#3D0A0A' },
+        handler: async (response) => {
+          setSubmitStage(2);
+          // Step 3: save to Google Sheets
+          try {
+            await fetch('/api/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                ...data,
+                food,
+                drink,
+                ref,
+                paymentId: response.razorpay_payment_id,
+              }),
+            });
+          } catch (e) {
+            console.error('Sheets save failed:', e);
+          }
+          setTimeout(() => { setSubmitting(false); setDone(true); }, 500);
+        },
+        modal: {
+          ondismiss: () => { setSubmitting(false); setSubmitStage(0); },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+
+    } catch (error) {
+      console.error(error);
+      setSubmitting(false);
+      alert('Something went wrong. Please try again.');
+    }
   };
 
   const foodLabel = food ? FOOD_OPTIONS.find((f) => f.key === food)?.name : "...";
@@ -67,7 +123,6 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
 
   // -------------- DONE STATE --------------
   if (done) {
-    const ref = "KYRA-" + Math.floor(10000 + Math.random() * 90000);
     return (
       <div className="form-panel">
         <div className="form-success">
@@ -79,7 +134,7 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
             ₹1,399 balance and the full event details.
           </p>
           <div className="receipt">
-            <div className="row"><span>application</span><b>#{ref}</b></div>
+            <div className="row"><span>application</span><b>#{appRef}</b></div>
             <div className="row"><span>name</span><b>{data.name}</b></div>
             <div className="row"><span>phone</span><b>{data.phone}</b></div>
             <div className="row"><span>pickup</span><b>{data.pickup}</b></div>
