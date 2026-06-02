@@ -1,6 +1,8 @@
 // Apply form for Kyra × Grumpy Girl
 const { useState, useRef } = React;
 
+const APPS_SCRIPT_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+
 const STORY_PROMPTS = [
   "the last cab ride",
   "a guy on the metro",
@@ -85,11 +87,11 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
         theme: { color: '#3D0A0A' },
         handler: async (response) => {
           setSubmitStage(2);
-          // Step 3: save to Google Sheets
+          // Step 3: save to Google Sheets via Apps Script
           try {
-            await fetch('/api/submit', {
+            await fetch(APPS_SCRIPT_URL, {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
               body: JSON.stringify({
                 ...data,
                 food,
