@@ -1,7 +1,7 @@
 // Apply form for Kyra × Grumpy Girl
 const { useState, useRef } = React;
 
-const APPS_SCRIPT_URL = 'PASTE_YOUR_APPS_SCRIPT_URL_HERE';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgJKUcD14aem-Sehk1udvk9bzL78VF2dzlwr1opd2J_-xbA8IG-Miw5nlbPHiC540/exec';
 
 const STORY_PROMPTS = [
   "the last cab ride",
