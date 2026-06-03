@@ -144,6 +144,7 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
             <div className="row"><span>your plate</span><b>{foodLabel}</b></div>
             <div className="row"><span>your pour</span><b>{drinkLabel}</b></div>
             <hr/>
+            <div className="row"><span>event date</span><b>Fri 12 Jun · Indiranagar</b></div>
             <div className="row"><span>deposit</span><b>₹100 · held</b></div>
             <div className="row"><span>balance</span><b>₹1,399 · if invited</b></div>
             <div className="row"><span>response by</span><b>Wed 10 Jun · 8pm</b></div>

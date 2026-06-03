@@ -73,7 +73,7 @@ const Hero = ({ onApply }) => {
       <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
         <div className="hero-eyebrow">
           <span className="pulse"></span>
-          <span>INVITES OUT 10 JUNE · BANGALORE</span>
+          <span>12 JUNE · BANGALORE · FRIDAY</span>
         </div>
 
         <h1>
@@ -97,7 +97,7 @@ const Hero = ({ onApply }) => {
         </div>
 
         <div className="hero-meta">
-          <div><b>WHEN</b><span>A Friday this June</span></div>
+          <div><b>WHEN</b><span>Friday, 12 June</span></div>
           <div><b>WHERE</b><span>Grumpy Girl Coffee · Indiranagar</span></div>
           <div><b>INVITES</b><span>Confirmed by 10 June</span></div>
           <div><b>SEATS</b><span>30 · first of many</span></div>
@@ -198,7 +198,7 @@ const InstaStrip = () => {
     { type: "stars", label: "clock it ↗", sticker: "clocked|noted|screenshot" },
     { type: "dot", label: "first of many", pop: "pop3", sticker: "the trilogy|the era|the cinematic universe" },
     { type: "stars", label: "indiranagar", sticker: "the spot|hometown|the move" },
-    { type: "dot", label: "a friday in june", pop: "pop1", sticker: "save the date|cleared my cal|locked in" },
+    { type: "dot", label: "friday 12 june", pop: "pop1", sticker: "save the date|cleared my cal|locked in" },
     { type: "stars", label: "byo grumpy", sticker: "the brief|i was born ready|done & done" },
   ];
   return (
@@ -375,8 +375,8 @@ const Activities = () => (
     <div className="wrap">
       <span className="section-eyebrow">on the day</span>
       <h2>
-        the <span className="hl">friday</span> you'll <br/>
-        <span className="hand">cancel</span> everything for.
+        <span className="hl">friday 12 june</span> —<br/>
+        <span className="hand">cancel</span> everything.
       </h2>
       <p className="section-lead">
         Brunch. Vent. Paint. Vent some more. Get a polaroid of you mid-rant.
@@ -611,7 +611,7 @@ const How = ({ onApply }) => (
           <div className="tag">step two</div>
           <div className="step-num">02</div>
           <h4>invite by 10 June</h4>
-          <p>We'll text you yes or no by Tuesday, 3rd June. Your invite carries the
+          <p>We'll text you yes or no by Tuesday, 10th June. Your invite carries the
             date, time, and seat number.</p>
         </div>
         <div className="how-step">
@@ -657,7 +657,7 @@ const FAQ = () => {
     },
     {
       q: "when is the event?",
-      a: "It's on a Friday in June. We're keeping the exact date off the public site on purpose. Confirmed invitees get the full details (date, time, address, seat number) on 3rd June. If you're applying, hold a Friday this June."
+      a: "Friday, 12 June. Grumpy Girl Coffee, Indiranagar. Confirmed invitees get the full details — time, seat number, and pickup info — by 10th June."
     },
     {
       q: "why only thirty seats?",
@@ -718,7 +718,7 @@ const Approval = ({ formRef, food, setFood, drink, setDrink }) => (
           <GrumpyWord><span className="hand">grumpy</span></GrumpyWord> about.
         </h2>
         <p className="section-lead">
-          Three minutes to apply. ₹100 to hold your spot. Invites land 10 June.
+          Three minutes to apply. ₹100 to hold your spot. Event: Friday 12 June. Invites by 10 June.
         </p>
 
         <div className="apply-stats">

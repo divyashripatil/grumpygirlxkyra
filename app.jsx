@@ -19,6 +19,7 @@ const App = () => {
     "indiranagar · bangalore",
     "byo rage · we'll bring snacks",
     "apply now · ₹100 to hold",
+    "event · fri 12 june",
     "invites · 10 june",
   ];
   const marqueeItems2 = [
