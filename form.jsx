@@ -87,23 +87,31 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
         theme: { color: '#3D0A0A' },
         handler: async (response) => {
           setSubmitStage(2);
-          // Step 3: save to Google Sheets via Apps Script
-          try {
-            await fetch(APPS_SCRIPT_URL, {
-              method: 'POST',
-              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-              body: JSON.stringify({
-                ...data,
-                food,
-                drink,
-                ref,
-                paymentId: response.razorpay_payment_id,
-              }),
-            });
-          } catch (e) {
-            console.error('Sheets save failed:', e);
-          }
-          setTimeout(() => { setSubmitting(false); setDone(true); }, 500);
+
+          const payload = {
+            ...data,
+            food,
+            drink,
+            ref,
+            paymentId: response.razorpay_payment_id,
+          };
+
+          // Step 3a: backup log via Vercel (never loses data)
+          fetch('/api/log-submission', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          }).catch(() => {});
+
+          // Step 3b: save to Google Sheets via Apps Script
+          fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload),
+          }).catch(() => {});
+
+          setTimeout(() => { setSubmitting(false); setDone(true); }, 800);
         },
         modal: {
           ondismiss: () => { setSubmitting(false); setSubmitStage(0); },
