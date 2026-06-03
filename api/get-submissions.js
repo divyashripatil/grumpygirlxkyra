@@ -2,7 +2,7 @@
 // Usage: GET /api/get-submissions?key=KYRA_ADMIN_2026
 // Returns JSON array of all submissions
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgJKUcD14aem-Sehk1udvk9bzL78VF2dzlwr1opd2J_-xbA8IG-Miw5nlbPHiC540/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDyxb4HpVTWJnaEGZggA6-sMsj-BEDybsFlHwvSvpsIIMubgWIbD1-JiweryeHXsIC8g/exec';
 const ADMIN_KEY = process.env.ADMIN_KEY || 'KYRA_ADMIN_2026';
 
 module.exports = async function handler(req, res) {
