@@ -484,11 +484,11 @@ const MapSection = () => {
       fillOpacity: 0.06,
     }).addTo(map);
 
-    // Fit map to the outer ring — delay so container is fully sized on mobile
+    // Lock to 5km view — invalidate first so container is measured correctly
     setTimeout(() => {
       map.invalidateSize();
-      map.fitBounds(outer.getBounds(), { padding: [20, 20] });
-    }, 200);
+      map.fitBounds(outer.getBounds(), { padding: [32, 32], maxZoom: 13 });
+    }, 250);
 
     // Animated pulsing pin marker
     const pinIcon = L.divIcon({
