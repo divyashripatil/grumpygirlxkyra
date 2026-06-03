@@ -96,18 +96,10 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
             paymentId: response.razorpay_payment_id,
           };
 
-          // Step 3a: backup log via Vercel (never loses data)
+          // Step 3: save via Vercel server → Google Sheets (server-side, no CORS)
           fetch('/api/log-submission', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          }).catch(() => {});
-
-          // Step 3b: save to Google Sheets via Apps Script
-          fetch(APPS_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(payload),
           }).catch(() => {});
 

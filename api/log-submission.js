@@ -1,3 +1,5 @@
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgJKUcD14aem-Sehk1udvk9bzL78VF2dzlwr1opd2J_-xbA8IG-Miw5nlbPHiC540/exec';
+
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -7,7 +9,7 @@ module.exports = async function handler(req, res) {
 
   const data = req.body;
 
-  // This logs to Vercel's function logs — always recoverable from dashboard
+  // Always log to Vercel (recoverable from dashboard)
   console.log('=== KYRA APPLICATION ===');
   console.log('ref:      ', data.ref);
   console.log('name:     ', data.name);
@@ -22,6 +24,18 @@ module.exports = async function handler(req, res) {
   console.log('paymentId:', data.paymentId);
   console.log('time:     ', new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
   console.log('========================');
+
+  // Write to Google Sheets server-side — no CORS, always works
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(data),
+    });
+    console.log('Sheets: saved OK');
+  } catch (err) {
+    console.error('Sheets: FAILED —', err.message);
+  }
 
   res.status(200).json({ ok: true });
 };
