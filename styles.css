@@ -1936,10 +1936,10 @@ a { color: inherit; text-decoration: none; }
 .map-address-body {
   font-family: var(--mono);
   font-size: 0.86rem;
-  line-height: 1.6;
-  color: var(--kyra-cream);
+  line-height: 1.7;
+  color: #FBE5BE;
   font-weight: 500;
-  opacity: 0.92;
+  opacity: 1;
 }
 .map-address-link {
   display: inline-block;

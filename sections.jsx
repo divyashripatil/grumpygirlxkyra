@@ -484,8 +484,11 @@ const MapSection = () => {
       fillOpacity: 0.06,
     }).addTo(map);
 
-    // Fit map to the outer ring so the 5km bubble actually fits inside the viewport
-    map.fitBounds(outer.getBounds(), { padding: [24, 24] });
+    // Fit map to the outer ring — delay so container is fully sized on mobile
+    setTimeout(() => {
+      map.invalidateSize();
+      map.fitBounds(outer.getBounds(), { padding: [20, 20] });
+    }, 200);
 
     // Animated pulsing pin marker
     const pinIcon = L.divIcon({
