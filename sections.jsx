@@ -98,6 +98,7 @@ const Hero = ({ onApply }) => {
 
         <div className="hero-meta">
           <div><b>WHEN</b><span>Friday, 12 June</span></div>
+          <div><b>TIME</b><span>11am · don't book lunch</span></div>
           <div><b>WHERE</b><span>Grumpy Girl Coffee · Indiranagar</span></div>
           <div><b>INVITES</b><span>Confirmed by 10 June</span></div>
           <div><b>SEATS</b><span>30 · first of many</span></div>
@@ -198,7 +199,7 @@ const InstaStrip = () => {
     { type: "stars", label: "clock it ↗", sticker: "clocked|noted|screenshot" },
     { type: "dot", label: "first of many", pop: "pop3", sticker: "the trilogy|the era|the cinematic universe" },
     { type: "stars", label: "indiranagar", sticker: "the spot|hometown|the move" },
-    { type: "dot", label: "friday 12 june", pop: "pop1", sticker: "save the date|cleared my cal|locked in" },
+    { type: "dot", label: "fri 12 jun · 11am", pop: "pop1", sticker: "save the date|cleared my cal|locked in" },
     { type: "stars", label: "byo grumpy", sticker: "the brief|i was born ready|done & done" },
   ];
   return (
@@ -379,6 +380,7 @@ const Activities = () => (
         <span className="hand">cancel</span> everything.
       </h2>
       <p className="section-lead">
+        Doors at 11am. Out by 2:30 — tell them you have a thing.
         Brunch. Vent. Paint. Vent some more. Get a polaroid of you mid-rant.
         Thirty women, one cafe, one collective exhale.
       </p>
@@ -624,9 +626,9 @@ const How = ({ onApply }) => (
         <div className="how-step">
           <div className="tag">step four</div>
           <div className="step-num">04</div>
-          <h4>turn up</h4>
+          <h4>turn up · 11am</h4>
           <p>We send the playlist link, pickup window, and the cafe address the morning
-            of. Driver will be outside. Walk in like you own it.</p>
+            of. Doors at 11am, table runs till ~2:30pm. Driver will be outside. Walk in like you own it.</p>
         </div>
       </div>
 
@@ -657,7 +659,7 @@ const FAQ = () => {
     },
     {
       q: "when is the event?",
-      a: "Friday, 12 June. Grumpy Girl Coffee, Indiranagar. Confirmed invitees get the full details — time, seat number, and pickup info — by 10th June."
+      a: "Friday, 12 June. Doors open at 11am — block out the morning, the table runs till mid-afternoon (~3.5 hours). Grumpy Girl Coffee, Indiranagar. Confirmed invitees get the full address, seat number, and pickup info by 10th June."
     },
     {
       q: "why only thirty seats?",
@@ -718,7 +720,7 @@ const Approval = ({ formRef, food, setFood, drink, setDrink }) => (
           <GrumpyWord><span className="hand">grumpy</span></GrumpyWord> about.
         </h2>
         <p className="section-lead">
-          Three minutes to apply. ₹100 to hold your spot. Event: Friday 12 June. Invites by 10 June.
+          Three minutes to apply. ₹100 to hold your spot. Event: Friday 12 June · 11am. Invites by 10 June.
         </p>
 
         <div className="apply-stats">
@@ -726,6 +728,11 @@ const Approval = ({ formRef, food, setFood, drink, setDrink }) => (
             <div className="apply-stat-num">₹100</div>
             <div className="apply-stat-label">to hold a seat</div>
             <div className="apply-stat-sub">refunded if not invited</div>
+          </div>
+          <div className="apply-stat">
+            <div className="apply-stat-num">11am</div>
+            <div className="apply-stat-label">fri 12 june · doors open</div>
+            <div className="apply-stat-sub">~3.5 hrs · don't book lunch</div>
           </div>
           <div className="apply-stat">
             <div className="apply-stat-num">10 jun</div>
