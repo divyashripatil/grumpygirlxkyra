@@ -1,5 +1,3 @@
-const Razorpay = require('razorpay');
-
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -7,25 +5,30 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET,
-  });
+  const keyId = process.env.RAZORPAY_KEY_ID;
+  const keySecret = process.env.RAZORPAY_KEY_SECRET;
+  const credentials = Buffer.from(`${keyId}:${keySecret}`).toString('base64');
 
   try {
-    const order = await razorpay.orders.create({
-      amount: 100, // ₹1 in paise — TESTING ONLY, change to 10000 for live
-      currency: 'INR',
-      receipt: 'kyra_' + Date.now(),
-      notes: { purpose: 'kyra x grumpy girl deposit' },
+    const response = await fetch('https://api.razorpay.com/v1/orders', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${credentials}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        amount: 100, // ₹1 in paise — change to 10000 for live ₹100
+        currency: 'INR',
+        receipt: 'kyra_' + Date.now(),
+      }),
     });
-    res.status(200).json({
-      orderId: order.id,
-      amount: order.amount,
-      key: process.env.RAZORPAY_KEY_ID,
-    });
+
+    const order = await response.json();
+    if (!response.ok) throw new Error(order.error?.description || 'Order failed');
+
+    res.status(200).json({ orderId: order.id, amount: order.amount, key: keyId });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Failed to create order' });
+    res.status(500).json({ error: error.message || 'Failed to create order' });
   }
 };
