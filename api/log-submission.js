@@ -1,4 +1,6 @@
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgJKUcD14aem-Sehk1udvk9bzL78VF2dzlwr1opd2J_-xbA8IG-Miw5nlbPHiC540/exec';
+const { google } = require('googleapis');
+
+const SHEET_ID = '1xSW4cCSwrgdOrD_RfBljXFRXQ5TkPk2LrytYKlwOYj0';
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -8,9 +10,11 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   const data = req.body;
+  const time = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-  // Always log to Vercel (recoverable from dashboard)
+  // Always log to Vercel — recoverable even if Sheets fails
   console.log('=== KYRA APPLICATION ===');
+  console.log('time:     ', time);
   console.log('ref:      ', data.ref);
   console.log('name:     ', data.name);
   console.log('phone:    ', data.phone);
@@ -22,20 +26,48 @@ module.exports = async function handler(req, res) {
   console.log('notes:    ', data.notes);
   console.log('story:    ', data.story);
   console.log('paymentId:', data.paymentId);
-  console.log('time:     ', new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
   console.log('========================');
 
-  // Write to Google Sheets server-side — no CORS, always works
+  // Write directly to Google Sheets via API — reliable, no CORS, no Apps Script
   try {
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(data),
+    const auth = new google.auth.GoogleAuth({
+      credentials: {
+        client_email: process.env.GOOGLE_CLIENT_EMAIL,
+        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+      },
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
-    console.log('Sheets: saved OK');
+
+    const sheets = google.sheets({ version: 'v4', auth });
+
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: SHEET_ID,
+      range: 'Sheet1!A:M',
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [[
+          time,
+          data.ref,
+          data.name,
+          data.phone,
+          data.location,
+          data.pickup,
+          data.instagram || '',
+          data.food,
+          data.drink,
+          data.notes || '',
+          data.story,
+          data.paymentId || '',
+          '₹100 · held',
+        ]],
+      },
+    });
+
+    console.log('Sheets: saved OK ✓');
+    res.status(200).json({ ok: true });
+
   } catch (err) {
     console.error('Sheets: FAILED —', err.message);
+    res.status(500).json({ ok: false, error: err.message });
   }
-
-  res.status(200).json({ ok: true });
 };
