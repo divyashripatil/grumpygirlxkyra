@@ -73,7 +73,7 @@ const Hero = ({ onApply }) => {
       <div className="wrap" style={{ position: "relative", zIndex: 2 }}>
         <div className="hero-eyebrow">
           <span className="pulse"></span>
-          <span>INVITES OUT 03 JUNE · BANGALORE</span>
+          <span>INVITES OUT 10 JUNE · BANGALORE</span>
         </div>
 
         <h1>
@@ -99,7 +99,7 @@ const Hero = ({ onApply }) => {
         <div className="hero-meta">
           <div><b>WHEN</b><span>A Friday this June</span></div>
           <div><b>WHERE</b><span>Grumpy Girl Coffee · Indiranagar</span></div>
-          <div><b>INVITES</b><span>Confirmed by 03 June</span></div>
+          <div><b>INVITES</b><span>Confirmed by 10 June</span></div>
           <div><b>SEATS</b><span>30 · first of many</span></div>
         </div>
       </div>
@@ -607,7 +607,7 @@ const How = ({ onApply }) => (
         <div className="how-step">
           <div className="tag">step two</div>
           <div className="step-num">02</div>
-          <h4>invite by 03 June</h4>
+          <h4>invite by 10 June</h4>
           <p>We'll text you yes or no by Tuesday, 3rd June. Your invite carries the
             date, time, and seat number.</p>
         </div>
@@ -715,7 +715,7 @@ const Approval = ({ formRef, food, setFood, drink, setDrink }) => (
           <GrumpyWord><span className="hand">grumpy</span></GrumpyWord> about.
         </h2>
         <p className="section-lead">
-          Three minutes to apply. ₹100 to hold your spot. Invites land 03 June.
+          Three minutes to apply. ₹100 to hold your spot. Invites land 10 June.
         </p>
 
         <div className="apply-stats">
@@ -725,7 +725,7 @@ const Approval = ({ formRef, food, setFood, drink, setDrink }) => (
             <div className="apply-stat-sub">refunded if not invited</div>
           </div>
           <div className="apply-stat">
-            <div className="apply-stat-num">03 jun</div>
+            <div className="apply-stat-num">10 jun</div>
             <div className="apply-stat-label">we say yes or no</div>
             <div className="apply-stat-sub">by tuesday evening</div>
           </div>

@@ -129,7 +129,7 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
       <div className="form-panel">
         <div className="form-success">
           <span className="hand">you're on the list ✦</span>
-          <h3>we'll text you<br/>by 03 june.</h3>
+          <h3>we'll text you<br/>by 10 june.</h3>
           <p>
             ₹100 is held on UPI. If we don't invite you, it's reversed within 48 hours
             of the decision, same UPI ID. If we do, you'll get a payment link for the
@@ -146,7 +146,7 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
             <hr/>
             <div className="row"><span>deposit</span><b>₹100 · held</b></div>
             <div className="row"><span>balance</span><b>₹1,399 · if invited</b></div>
-            <div className="row"><span>response by</span><b>Tue 03 Jun · 8pm</b></div>
+            <div className="row"><span>response by</span><b>Wed 10 Jun · 8pm</b></div>
           </div>
         </div>
       </div>

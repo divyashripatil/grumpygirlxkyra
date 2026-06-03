@@ -17,7 +17,7 @@ module.exports = async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        amount: 100, // ₹1 in paise — change to 10000 for live ₹100
+        amount: 10000, // ₹100 in paise
         currency: 'INR',
         receipt: 'kyra_' + Date.now(),
       }),
