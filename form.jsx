@@ -64,23 +64,54 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
     setAppRef(ref);
 
     try {
+      // Step 1: create Razorpay order
+      const orderRes = await fetch('/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      });
+      const orderData = await orderRes.json();
+      if (!orderData.orderId) throw new Error('Order creation failed');
+
       setSubmitStage(1);
 
-      // Save to Google Sheets via Apps Script
-      await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          ...data,
-          food,
-          drink,
-          ref,
-          paymentId: '',
-        }),
-      });
+      // Step 2: open Razorpay checkout
+      const options = {
+        key: orderData.key,
+        amount: orderData.amount,
+        currency: 'INR',
+        name: 'kyra × grumpy girl',
+        description: '₹100 deposit · your spot in the queue',
+        order_id: orderData.orderId,
+        prefill: { name: data.name, contact: data.phone },
+        theme: { color: '#3D0A0A' },
+        handler: async (response) => {
+          setSubmitStage(2);
+          // Step 3: save to Google Sheets via Apps Script
+          try {
+            await fetch(APPS_SCRIPT_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+              body: JSON.stringify({
+                ...data,
+                food,
+                drink,
+                ref,
+                paymentId: response.razorpay_payment_id,
+              }),
+            });
+          } catch (e) {
+            console.error('Sheets save failed:', e);
+          }
+          setTimeout(() => { setSubmitting(false); setDone(true); }, 500);
+        },
+        modal: {
+          ondismiss: () => { setSubmitting(false); setSubmitStage(0); },
+        },
+      };
 
-      setSubmitStage(2);
-      setTimeout(() => { setSubmitting(false); setDone(true); }, 500);
+      const rzp = new window.Razorpay(options);
+      rzp.open();
 
     } catch (error) {
       console.error(error);
