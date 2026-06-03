@@ -10,8 +10,24 @@ module.exports = async function handler(req, res) {
   const data = req.body;
   const time = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-  // ── PERMANENT VERCEL LOG ─────────────────────────────────────────
-  // Always written, always recoverable. Pull anytime from Vercel → Logs.
+  // ── PERMANENT VERCEL LOG (structured, easy to grep/parse) ───────────────
+  // This is ALWAYS written. Pull from Vercel → Logs → filter "KYRA_SUB" any time.
+  console.log('KYRA_SUB', JSON.stringify({
+    time,
+    ref:       data.ref       || '',
+    name:      data.name      || '',
+    phone:     data.phone     || '',
+    location:  data.location  || '',
+    pickup:    data.pickup    || '',
+    instagram: data.instagram || '',
+    food:      data.food      || '',
+    drink:     data.drink     || '',
+    notes:     data.notes     || '',
+    story:     data.story     || '',
+    paymentId: data.paymentId || '',
+  }));
+
+  // ── HUMAN-READABLE LOG (for visual scan in Vercel dashboard) ─────────────
   console.log('──────────────────────────────────');
   console.log('KYRA APPLICATION');
   console.log('time:     ', time);
@@ -28,8 +44,7 @@ module.exports = async function handler(req, res) {
   console.log('paymentId:', data.paymentId);
   console.log('──────────────────────────────────');
 
-  // ── GOOGLE SHEETS VIA APPS SCRIPT ───────────────────────────────
-  // Called server-side so no CORS. Retries once on failure.
+  // ── GOOGLE SHEETS VIA APPS SCRIPT (server-side, 3 attempts) ─────────────
   const payload = JSON.stringify(data);
 
   const postToSheet = () => fetch(APPS_SCRIPT_URL, {
@@ -39,23 +54,34 @@ module.exports = async function handler(req, res) {
     body: payload,
   });
 
-  try {
-    let response = await postToSheet();
+  let sheetsOk = false;
+  let sheetsError = '';
 
-    // Retry once if it failed
-    if (!response.ok) {
-      console.log('Sheets: first attempt failed, retrying…');
-      response = await postToSheet();
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const response = await postToSheet();
+      const text = await response.text();
+      if (response.ok) {
+        console.log(`Sheets: saved OK ✓ (attempt ${attempt}) — ${text.slice(0, 120)}`);
+        sheetsOk = true;
+        break;
+      } else {
+        console.log(`Sheets: attempt ${attempt} failed (${response.status}) — retrying…`);
+        sheetsError = `HTTP ${response.status}`;
+      }
+    } catch (err) {
+      console.log(`Sheets: attempt ${attempt} error — ${err.message} — retrying…`);
+      sheetsError = err.message;
+      // short wait before retry
+      await new Promise(r => setTimeout(r, 600 * attempt));
     }
-
-    const text = await response.text();
-    console.log('Sheets: saved OK ✓ —', response.status, text.slice(0, 120));
-    res.status(200).json({ ok: true });
-
-  } catch (err) {
-    // Even if Sheets fails, data is safe in logs above
-    console.error('Sheets: FAILED —', err.message);
-    console.error('RECOVER FROM LOGS ABOVE ↑');
-    res.status(200).json({ ok: true, sheetsError: err.message });
   }
+
+  if (!sheetsOk) {
+    console.error('Sheets: ALL 3 ATTEMPTS FAILED —', sheetsError);
+    console.error('RECOVER FROM KYRA_SUB LOG ABOVE ↑');
+  }
+
+  // Always 200 — Vercel log is the safety net
+  res.status(200).json({ ok: true, sheetsOk });
 };
