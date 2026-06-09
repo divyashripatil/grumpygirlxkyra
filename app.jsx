@@ -18,7 +18,7 @@ const App = () => {
     "thirty grumpy women · one cafe",
     "indiranagar · bangalore",
     "byo rage · we'll bring snacks",
-    "apply now · ₹100 to hold",
+    "apply now · ₹1,499",
     "event · fri 12 june",
     "invites · 10 june",
   ];

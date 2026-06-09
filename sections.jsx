@@ -593,7 +593,7 @@ const How = ({ onApply }) => (
     <div className="wrap">
       <span className="section-eyebrow">how it works</span>
       <h2>
-        apply, hold a seat, <br/>
+        apply, secure a seat, <br/>
         <span className="hand">come angry</span>.
       </h2>
       <p className="section-lead">
@@ -605,9 +605,8 @@ const How = ({ onApply }) => (
         <div className="how-step">
           <div className="tag">step one</div>
           <div className="step-num">01</div>
-          <h4>apply &amp; pay ₹100</h4>
-          <p>Three-minute form, then a UPI hold of ₹100 to lock your slot in the waitlist.
-            Refundable if we don't invite you.</p>
+          <h4>apply &amp; pay ₹1,499</h4>
+          <p>Three-minute form, then a full payment of ₹1,499 to secure your seat. Non-refundable once paid.</p>
         </div>
         <div className="how-step">
           <div className="tag">step two</div>
@@ -619,13 +618,6 @@ const How = ({ onApply }) => (
         <div className="how-step">
           <div className="tag">step three</div>
           <div className="step-num">03</div>
-          <h4>pay ₹1,399 to confirm</h4>
-          <p>If invited, you pay the remaining ₹1,399 within 48 hours to lock the seat.
-            Total ₹1,499. Non-refundable from here.</p>
-        </div>
-        <div className="how-step">
-          <div className="tag">step four</div>
-          <div className="step-num">04</div>
           <h4>turn up · 11am</h4>
           <p>We send the playlist link, pickup window, and the cafe address the morning
             of. Doors at 11am, table runs till ~2:30pm. Driver will be outside. Walk in like you own it.</p>
@@ -651,11 +643,11 @@ const FAQ = () => {
   const items = [
     {
       q: "what does ₹1,499 actually buy me?",
-      a: "Entry to a closed cafe with thirty women, your chosen brunch (one plate + one drink), the paint-your-own tote and canvas station with all supplies, a four-hour DJ set, free polaroid prints, and a Kyra ride to pick you up and drop you home (within ~5km of the cafe). ₹100 is paid on application; the remaining ₹1,399 is paid only if you're invited."
+      a: "Entry to a closed cafe with thirty women, your chosen brunch (one plate + one drink), the paint-your-own tote and canvas station with all supplies, a four-hour DJ set, free polaroid prints, and a Kyra ride to pick you up and drop you home (within ~5km of the cafe). Full ₹1,499 is paid upfront at application."
     },
     {
       q: "is the ₹1,499 refundable?",
-      a: "The ₹100 deposit at application is refunded if we don't invite you. Once invited and you pay the ₹1,399, the full ₹1,499 is non-refundable. We're holding seats, ordering food, paying the DJ and the drivers. If something urgent comes up, message us and we'll do our best to roll your seat to the next event."
+      a: "The ₹1,499 is non-refundable. We're holding seats, ordering food, paying the DJ and the drivers. If something urgent comes up, message us and we'll do our best to roll your seat to the next event."
     },
     {
       q: "when is the event?",
@@ -720,14 +712,14 @@ const Approval = ({ formRef, food, setFood, drink, setDrink }) => (
           <GrumpyWord><span className="hand">grumpy</span></GrumpyWord> about.
         </h2>
         <p className="section-lead">
-          Three minutes to apply. ₹100 to hold your spot. Event: Friday 12 June · 11am. Invites by 10 June.
+          Three minutes to apply. ₹1,499 to secure your seat. Event: Friday 12 June · 11am. Invites by 10 June.
         </p>
 
         <div className="apply-stats">
           <div className="apply-stat">
-            <div className="apply-stat-num">₹100</div>
-            <div className="apply-stat-label">to hold a seat</div>
-            <div className="apply-stat-sub">refunded if not invited</div>
+            <div className="apply-stat-num">₹1,499</div>
+            <div className="apply-stat-label">to secure your seat</div>
+            <div className="apply-stat-sub">full payment upfront</div>
           </div>
           <div className="apply-stat">
             <div className="apply-stat-num">11am</div>

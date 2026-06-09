@@ -37,7 +37,7 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
   const [done, setDone] = useState(false);
   const [submitStage, setSubmitStage] = useState(0);
   const [appRef, setAppRef] = useState("");
-  // 0 = saving · 1 = holding ₹100 · 2 = confirmed
+  // 0 = saving · 1 = processing ₹1,499 · 2 = confirmed
 
   const update = (k, v) => setData((d) => ({ ...d, [k]: v }));
 
@@ -81,7 +81,7 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
         amount: orderData.amount,
         currency: 'INR',
         name: 'kyra × grumpy girl',
-        description: '₹100 deposit · your spot in the queue',
+        description: '₹1,499 · your seat at the event',
         order_id: orderData.orderId,
         prefill: { name: data.name, contact: data.phone },
         theme: { color: '#3D0A0A' },
@@ -131,9 +131,7 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
           <span className="hand">you're on the list ✦</span>
           <h3>we'll text you<br/>by 10 june.</h3>
           <p>
-            ₹100 is held on UPI. If we don't invite you, it's reversed within 48 hours
-            of the decision, same UPI ID. If we do, you'll get a payment link for the
-            ₹1,399 balance and the full event details.
+            Your ₹1,499 payment is confirmed. You're in the queue. We'll text you by 10 June with your invite and full event details.
           </p>
           <div className="receipt">
             <div className="row"><span>application</span><b>#{appRef}</b></div>
@@ -145,8 +143,7 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
             <div className="row"><span>your pour</span><b>{drinkLabel}</b></div>
             <hr/>
             <div className="row"><span>event date</span><b>Fri 12 Jun · Indiranagar</b></div>
-            <div className="row"><span>deposit</span><b>₹100 · held</b></div>
-            <div className="row"><span>balance</span><b>₹1,399 · if invited</b></div>
+            <div className="row"><span>payment</span><b>₹1,499 · paid</b></div>
             <div className="row"><span>response by</span><b>Wed 10 Jun · 8pm</b></div>
           </div>
         </div>
@@ -158,7 +155,7 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
   if (submitting) {
     const stages = [
       "saving your application…",
-      "holding ₹100 on upi…",
+      "processing ₹1,499 payment…",
       "confirming · you're in queue ✓",
     ];
     return (
@@ -355,7 +352,7 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
           onClick={next}
           data-sticker={step < totalSteps - 1 ? "let me cook|next|continue|yes." : "manifesting|clock it ★|seated.|sending it"}
         >
-          {step < totalSteps - 1 ? "next →" : "submit · hold ₹100 →"}
+          {step < totalSteps - 1 ? "next →" : "submit · pay ₹1,499 →"}
         </button>
         <span className="step-count">{step + 1} / {totalSteps}</span>
       </div>
