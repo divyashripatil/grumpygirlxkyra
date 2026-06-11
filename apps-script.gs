@@ -4,7 +4,7 @@
 // Deploy as: Execute as → Me  |  Who has access → Anyone, even anonymous
 // ─────────────────────────────────────────────────────────────────
 
-const SHEET_ID = '1xSW4cCSwrgdOrD_RfBljXFRXQ5TkPk2LrytYKlwOYj0';
+const SHEET_ID = '1HBc4M1Vv9gYm20zRlzUYAixFUvm1I6SDzlIYxCLT71o';
 const SHEET_NAME = 'Sheet1'; // change if your tab has a different name
 
 const HEADERS = [

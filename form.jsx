@@ -71,6 +71,7 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
         body: JSON.stringify({}),
       });
       const orderData = await orderRes.json();
+      if (orderData.full) throw new Error('FULL');
       if (!orderData.orderId) throw new Error('Order creation failed');
 
       setSubmitStage(1);
@@ -116,7 +117,11 @@ const ApplyForm = ({ food, drink, setFood, setDrink }) => {
     } catch (error) {
       console.error(error);
       setSubmitting(false);
-      alert('Something went wrong. Please try again.');
+      if (error.message === 'FULL') {
+        alert('We\'ve hit 30 seats and the event is now full. Thank you for applying.');
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
     }
   };
 
