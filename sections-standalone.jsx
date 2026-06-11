@@ -697,48 +697,79 @@ const FAQ = () => {
 
 // ----- Apply section --------------------------------------------------------
 
-const Approval = ({ formRef, food, setFood, drink, setDrink }) => (
-  <section id="apply" className="section approval" data-screen-label="08 Apply" ref={formRef}>
-    <div className="wrap approval-wrap">
-      <div className="approval-copy">
-        <span className="section-eyebrow">apply for a seat</span>
-        <h2 className="apply-heading">
-          tell us what you're<br/>
-          <GrumpyWord><span className="hand">grumpy</span></GrumpyWord> about.
-        </h2>
-        <p className="section-lead">
-          Three minutes to apply. ₹1,499 to secure your seat. Invites land 10 June.
-        </p>
+const Approval = ({ formRef, food, setFood, drink, setDrink }) => {
+  const [capacity, setCapacity] = useState({ count: null, remaining: null, full: false });
 
-        <div className="apply-stats">
-          <div className="apply-stat">
-            <div className="apply-stat-num">₹1,499</div>
-            <div className="apply-stat-label">to secure your seat</div>
-            <div className="apply-stat-sub">full payment upfront</div>
+  useEffect(() => {
+    fetch('/api/check-capacity')
+      .then(r => r.json())
+      .then(d => setCapacity(d))
+      .catch(() => {});
+  }, []);
+
+  return (
+    <section id="apply" className="section approval" data-screen-label="08 Apply" ref={formRef}>
+      <div className="wrap approval-wrap">
+        <div className="approval-copy">
+          <span className="section-eyebrow">apply for a seat</span>
+          <h2 className="apply-heading">
+            tell us what you're<br/>
+            <GrumpyWord><span className="hand">grumpy</span></GrumpyWord> about.
+          </h2>
+          <p className="section-lead">
+            {capacity.full
+              ? "All 30 seats are filled. We'll be back with the next one."
+              : "Three minutes to apply. ₹1,499 to secure your seat. Invites land 10 June."}
+          </p>
+
+          <div className="apply-stats">
+            <div className="apply-stat">
+              <div className="apply-stat-num">₹1,499</div>
+              <div className="apply-stat-label">to secure your seat</div>
+              <div className="apply-stat-sub">full payment upfront</div>
+            </div>
+            <div className="apply-stat">
+              <div className="apply-stat-num">10 jun</div>
+              <div className="apply-stat-label">we say yes or no</div>
+              <div className="apply-stat-sub">by tuesday evening</div>
+            </div>
+            <div className="apply-stat">
+              <div className="apply-stat-num">5 km</div>
+              <div className="apply-stat-label">pickup on us</div>
+              <div className="apply-stat-sub">women drivers, around cafe</div>
+            </div>
+            {capacity.count !== null && (
+              <div className="apply-stat">
+                <div className="apply-stat-num" style={{ color: capacity.full ? '#C2502A' : 'inherit' }}>
+                  {capacity.count}/30
+                </div>
+                <div className="apply-stat-label">{capacity.full ? 'seats filled' : 'seats taken'}</div>
+                <div className="apply-stat-sub">
+                  {capacity.full ? 'event is full' : `${capacity.remaining} remaining`}
+                </div>
+              </div>
+            )}
           </div>
-          <div className="apply-stat">
-            <div className="apply-stat-num">10 jun</div>
-            <div className="apply-stat-label">we say yes or no</div>
-            <div className="apply-stat-sub">by tuesday evening</div>
-          </div>
-          <div className="apply-stat">
-            <div className="apply-stat-num">5 km</div>
-            <div className="apply-stat-label">pickup on us</div>
-            <div className="apply-stat-sub">women drivers, around cafe</div>
-          </div>
+
+          <p className="apply-footnote">
+            The room is built from your answers. Be specific. Be honest. Be unhinged.
+          </p>
         </div>
-
-        <p className="apply-footnote">
-          The room is built from your answers. Be specific. Be honest. Be unhinged.
-        </p>
+        {capacity.full ? (
+          <div className="apply-sold-out">
+            <p>this one's full.</p>
+            <p>we're already planning the next. leave your email and you'll hear first.</p>
+          </div>
+        ) : (
+          <ApplyForm food={food} drink={drink} setFood={setFood} setDrink={setDrink} />
+        )}
       </div>
-      <ApplyForm food={food} drink={drink} setFood={setFood} setDrink={setDrink} />
-    </div>
-    <Sparkle className="approval-spark as1" color="#C2502A" />
-    <Sparkle className="approval-spark as2" />
-    <img src=window.__resources.mascot alt="" aria-hidden="true" className="approval-face" />
-  </section>
-);
+      <Sparkle className="approval-spark as1" color="#C2502A" />
+      <Sparkle className="approval-spark as2" />
+      <img src=window.__resources.mascot alt="" aria-hidden="true" className="approval-face" />
+    </section>
+  );
+};
 
 // ----- Footer ---------------------------------------------------------------
 
